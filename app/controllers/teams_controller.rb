@@ -46,14 +46,10 @@ class TeamsController < ApplicationController
 
   def update
     @conferences = conference_list
-    respond_to do |format|
-      if @team.update_attributes(team_params)
-        format.html { redirect_to @team, notice: 'Team was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: :edit }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
-      end
+    if @team.update_attributes(team_params)
+      redirect_to @team, notice: 'Team was successfully updated.'
+    else
+      render action: :edit
     end
   end
 
