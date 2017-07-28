@@ -1,7 +1,5 @@
 FactoryGirl.define do
   factory :conference_preference_info do
-    condition_term_ticket true
-    condition_term_cost true
     lightning_talk true
     comment { FFaker::Lorem.paragraph }
     team { FactoryGirl.create(:team, :in_current_season, :with_students) }
@@ -15,6 +13,11 @@ FactoryGirl.define do
         cp_info.conference_preferences
                .create(conference_id: conf2.id, option: 2)
       end
+    end
+
+    trait :checked_terms do
+      condition_term_ticket true
+      condition_term_cost true
     end
   end
 end

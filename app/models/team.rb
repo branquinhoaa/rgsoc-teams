@@ -25,7 +25,7 @@ class Team < ActiveRecord::Base
   has_one :last_activity, -> { order('id DESC') }, class_name: 'Activity'
   has_many :comments, as: :commentable
   has_many :status_updates, -> { where(kind: 'status_update') }, class_name: 'Activity'
-  has_one :conference_preference_info
+  has_one :conference_preference_info, dependent: :destroy
   has_many :conference_preferences, through: :conference_preference_info, dependent: :destroy
   has_many :conferences, through: :conference_preferences
 
