@@ -9,10 +9,6 @@ FactoryGirl.define do
 
     trait :in_current_season do
       season { Season.current }
-      after(:create) do |team|
-        team.roles.create name: 'student', user: create(:user)
-        team
-      end
     end
 
     trait :last_season do
@@ -21,6 +17,15 @@ FactoryGirl.define do
 
     trait :supervise do
       name 'supervise'
+    end
+
+    trait :with_students do
+      after(:create) do |team|
+        %w(student student).each do |role|
+          team.roles.create name: role, user: create(:user)
+          team
+        end
+      end
     end
 
     trait :applying_team do

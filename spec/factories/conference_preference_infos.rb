@@ -4,7 +4,7 @@ FactoryGirl.define do
     condition_term_cost true
     lightning_talk true
     comment { FFaker::Lorem.paragraph }
-    team { FactoryGirl.create(:team, :in_current_season) }
+    team { FactoryGirl.create(:team, :in_current_season, :with_students) }
 
     trait :with_preferences do
       after(:create) do |cp_info|
