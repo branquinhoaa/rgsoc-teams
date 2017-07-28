@@ -11,6 +11,7 @@ FactoryGirl.define do
       season { Season.current }
       after(:create) do |team|
         team.roles.create name: 'student', user: create(:user)
+        team
       end
     end
 
