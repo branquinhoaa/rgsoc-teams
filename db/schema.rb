@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727145559) do
+ActiveRecord::Schema.define(version: 20170801141914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,10 +98,14 @@ ActiveRecord::Schema.define(version: 20170727145559) do
     t.boolean "confirmed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id"
-    t.bigint "conference_id"
     t.integer "option"
-    t.index ["conference_id"], name: "index_conference_preferences_on_conference_id"
+    t.bigint "first_choice_id"
+    t.bigint "second_choice_id"
+    t.bigint "team_id"
+    t.text "comment"
+    t.boolean "lightning_talk", default: false
+    t.index ["first_choice_id"], name: "index_conference_preferences_on_first_choice_id"
+    t.index ["second_choice_id"], name: "index_conference_preferences_on_second_choice_id"
     t.index ["team_id"], name: "index_conference_preferences_on_team_id"
   end
 
@@ -308,6 +312,5 @@ ActiveRecord::Schema.define(version: 20170727145559) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 
-  add_foreign_key "conference_preferences", "conferences"
   add_foreign_key "conference_preferences", "teams"
 end
