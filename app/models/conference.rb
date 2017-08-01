@@ -10,11 +10,12 @@ class Conference < ActiveRecord::Base
 
   include HasSeason
 
-  has_many :preferences_first_choices, :class_name => 'ConferencePreference', :foreign_key => 'first_choice_id'
-  has_many :preferences_second_choices, :class_name => 'ConferencePreference', :foreign_key => 'second_choice_id'
+  has_many :preferences_first_choices, :class_name => 'ConferencePreference', :foreign_key => 'first_choice_id', dependent: :destroy
+  has_many :preferences_second_choices, :class_name => 'ConferencePreference', :foreign_key => 'second_choice_id', dependent: :destroy
 
 
-  has_many :attendees, through: :conference_preference, source: :team
+  has_many :attendees, through: :preferences_first_choices, source: :team
+  has_many :attendees, through: :preferences_second_choices, source: :team
 
   validates :name, :url, :city, :country, :region, presence: true
 
