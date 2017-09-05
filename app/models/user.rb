@@ -87,6 +87,10 @@ class User < ActiveRecord::Base
       where(name: 'supervisor')
     end
 
+    def coach
+      where(name: 'coach')
+    end
+
     def student
       where(name: 'student')
     end
@@ -159,6 +163,14 @@ class User < ActiveRecord::Base
       where(":interest = ANY(interested_in)", interest: interest)
     end
 
+    def with_location(location)
+      where(country: location)
+    end
+
+    def as_coach_availability
+      where(availability: true)
+    end
+
     def immutable_attributes
       [:github_handle]
     end
@@ -194,6 +206,10 @@ class User < ActiveRecord::Base
 
   def supervisor?
     roles.supervisor.any?
+  end
+
+  def coach?
+    roles.coach.any?
   end
 
   def student?
